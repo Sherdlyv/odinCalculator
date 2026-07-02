@@ -1,0 +1,57 @@
+body{
+    background-color: gray;
+    color: white;
+}
+
+.container{
+    margin-right: 50px;
+    margin-left: 400px;
+    border-radius: 20px;
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+    color: yellow;
+     background-color: black;
+    
+}
+
+.screen {
+  background-color: #222;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: right;
+  margin-bottom: 50px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.keyboard{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 10px;
+
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.btn_clear {
+  grid-column: span 2;
+  border-radius: 20px;
+}
+
+.btn_delete{
+  grid-column: span 2;
+  border-radius: 20px;
+}
+
+.btn_operator {
+  background-color: #07f542; 
+  color: black;
+}
+
+.btn_equals{
+background-color: #38ee00; 
+  color: black;
+}
