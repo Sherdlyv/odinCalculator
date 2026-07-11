@@ -35,7 +35,16 @@ function operate(operator,numb1,numb2){
         result = multiply(n1, n2);
     }
     else if(operator === "/"){
-        result = divide(n1, n2);
+        if(n2 === 0){
+          result = "Nice try, Einstein!"; 
+        }
+        else{
+          result = divide(n1, n2);
+        }
+        
+    }
+     if (typeof result === "string") {
+        return result;
     }
 
     return parseFloat(result.toFixed(3));
@@ -106,6 +115,7 @@ function updateOperator(newOperator){
         numb1 = operate(operator, numb1, numb2);
       
         numb2 = "";
+        
     }
     
     operator = newOperator;
