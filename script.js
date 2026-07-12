@@ -1,3 +1,5 @@
+let isResultDisplayed = false; 
+
 function add(a,b){
     return a+b;
 }
@@ -50,8 +52,11 @@ function operate(operator,numb1,numb2){
     return parseFloat(result.toFixed(3));
 }
 
+
     
 function updateNumber(digit){
+ 
+    
     if (operator === "") {
         numb1 = numb1 + digit;
     } else {
@@ -72,12 +77,59 @@ const buttons = document.querySelectorAll(".btn_number");
 buttons.forEach((button) => {
 
 button.addEventListener("click", ()=>{
+
+     if (isResultDisplayed) {
+        numb1 = "";                
+        numb2 = "";
+        operator = "";
+        isResultDisplayed = false; 
+    }
     
 updateNumber(button.textContent);
 
 updateDisplay();
 });
 
+});
+
+window.addEventListener("keydown", (e) => {
+    
+    if (e.key === "." || e.key === ",") {
+        e.preventDefault(); 
+        decimal.click(); 
+    }
+    
+    
+    else if (e.key === "Backspace") {
+        e.preventDefault();
+        delet.click(); 
+    }
+    
+    else if (/^[0-9]$/.test(e.key)) {
+        if (isResultDisplayed) {
+            numb1 = ""; 
+            numb2 = "";
+            operator = "";
+            isResultDisplayed = false;
+        }
+        updateNumber(e.key); 
+        updateDisplay();     
+    }
+
+    else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+        e.preventDefault();
+
+        const boutonOp = Array.from(document.querySelectorAll(".btn_operator"))
+                               .find(btn => btn.textContent === e.key);
+
+         if (boutonOp) boutonOp.click();
+    }
+    
+      else if (e.key === "Enter" || e.key === "=") {
+        e.preventDefault();
+        const btnEqual = document.querySelector(".btn_equals"); 
+        if (btnEqual) btnEqual.click();
+    }
 });
 
 
@@ -101,7 +153,16 @@ function addDecimal() {
 const decimal = document.querySelector(".btn_decimal");
 decimal.addEventListener("click", ()=>{
 
-    addDecimal(operator,numb1,numb2);
+      if (isResultDisplayed) {
+        numb1 = "0.";
+        numb2 = "";
+        operator = "";
+        isResultDisplayed = false;
+        updateDisplay();
+        return;
+    }
+
+    addDecimal();
 
 updateDisplay();
 
@@ -128,6 +189,7 @@ operateButtons.forEach((button) =>{
 
     button.addEventListener("click", () => {
 
+          isResultDisplayed = false;
        updateOperator(button.textContent);
         updateDisplay(); 
 
@@ -145,6 +207,7 @@ equal.addEventListener("click", ()=>{
      if (numb1 !== "" && operator !== "" && numb2 !== "") {
 
         numb1 = operate(operator, numb1, numb2);
+        isResultDisplayed = true;
 
         operator = "";
         numb2 = "";
@@ -152,6 +215,8 @@ equal.addEventListener("click", ()=>{
         updateDisplay();
 
      };
+
+
 
 });
 
@@ -175,6 +240,8 @@ delet.addEventListener("click", ()=>{
      updateDisplay();
 
 });
+
+
 
 const clear = document.querySelector(".btn_clear");
 
